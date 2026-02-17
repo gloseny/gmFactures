@@ -1,47 +1,34 @@
-name: Build
-
+name: Build Electron App - gmFactures
 on:
   push:
-    branches: [main]
-    paths-ignore:
-      - "**.md"
-      - "**.spec.js"
-      - ".idea"
-      - ".vscode"
-      - ".dockerignore"
-      - "Dockerfile"
-      - ".gitignore"
-      - ".github/**"
-      - "!.github/workflows/build.yml"
+    tags:
+      - 'v*' # Se déclenche quand vous créez un tag comme v1.0.1
 
 jobs:
-  build:
+  release:
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # On lance 3 serveurs en parallèle (mac, windows, linux)
+        os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Check out git repository
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build Release Files
+      - name: Build frontend (Vite)
         run: npm run build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - name: Build & Release Electron App
+        uses: samuelmeuli/action-electron-builder@v1
         with:
-          name: release_on_${{ matrix. os }}
-          path: release/
-          retention-days: 5
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release: true # Crée automatiquement une "Release" sur GitHub

@@ -1,91 +1,198 @@
-# electron-vite-react
+# 🧾 GestionFactures
 
-[![awesome-vite](https://awesome.re/mentioned-badge.svg)](https://github.com/vitejs/awesome-vite)
-![GitHub stars](https://img.shields.io/github/stars/caoxiemeihao/vite-react-electron?color=fa6470)
-![GitHub issues](https://img.shields.io/github/issues/caoxiemeihao/vite-react-electron?color=d8b22d)
-![GitHub license](https://img.shields.io/github/license/caoxiemeihao/vite-react-electron)
-[![Required Node.JS >= 14.18.0 || >=16.0.0](https://img.shields.io/static/v1?label=node&message=14.18.0%20||%20%3E=16.0.0&logo=node.js&color=3f893e)](https://nodejs.org/about/releases)
+Application desktop complète de gestion et d'édition de factures développée avec Electron, React et SQLite.
 
-English | [简体中文](README.zh-CN.md)
+## 🚀 Fonctionnalités
 
-## 👀 Overview
+### 📊 Tableau de bord
+- KPIs en temps réel (CA, factures en attente, clients actifs)
+- Graphiques interactifs avec Recharts
+- Vue d'ensemble de l'activité
 
-📦 Ready out of the box  
-🎯 Based on the official [template-react-ts](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts), project structure will be familiar to you  
-🌱 Easily extendable and customizable  
-💪 Supports Node.js API in the renderer process  
-🔩 Supports C/C++ native addons  
-🐞 Debugger configuration included  
-🖥 Easy to implement multiple windows  
+### 🧾 Gestion des factures
+- **Création** de factures avec calculs automatiques
+- **Édition** et mise à jour des statuts
+- **Visualisation** détaillée avec export PDF
+- **Suppression** sécurisée
+- Numérotation automatique (FAC-YYYY-XXXX)
 
-## 🛫 Quick Setup
+### 👥 Gestion des clients
+- **CRUD** complet des clients
+- **Recherche** avancée
+- **Historique** des factures par client
+- **Statistiques** par client
 
-```sh
-# clone the project
-git clone https://github.com/electron-vite/electron-vite-react.git
+### 📈 Rapports et export
+- **Rapports** par période personnalisée
+- **Export PDF** des factures et rapports
+- **Export CSV** pour intégration comptable
+- **Graphiques** d'évolution du CA
 
-# enter the project directory
-cd electron-vite-react
+### ⚙️ Paramètres entreprise
+- Configuration des informations de l'entreprise
+- Personnalisation des mentions légales
+- Gestion des coordonnées bancaires
 
-# install dependency
+## 🛠️ Technologies
+
+- **Frontend**: React 18 + Hooks
+- **Routing**: React Router v6
+- **Styling**: Tailwind CSS
+- **Graphiques**: Recharts
+- **Desktop**: Electron
+- **Base de données**: SQLite (better-sqlite3)
+- **Export PDF**: jsPDF + jsPDF-autotable
+- **Build**: Vite + Electron Builder
+
+## 📦 Installation
+
+### Prérequis
+- Node.js 18+ 
+- npm ou yarn
+
+### Installation des dépendances
+```bash
 npm install
+```
 
-# develop
+### Démarrage en développement
+```bash
 npm run dev
 ```
 
-## 🐞 Debug
-
-![electron-vite-react-debug.gif](/electron-vite-react-debug.gif)
-
-## 📂 Directory structure
-
-Familiar React application structure, just with `electron` folder on the top :wink:  
-*Files in this folder will be separated from your React application and built into `dist-electron`*  
-
-```tree
-├── electron                                 Electron-related code
-│   ├── main                                 Main-process source code
-│   └── preload                              Preload-scripts source code
-│
-├── release                                  Generated after production build, contains executables
-│   └── {version}
-│       ├── {os}-{os_arch}                   Contains unpacked application executable
-│       └── {app_name}_{version}.{ext}       Installer for the application
-│
-├── public                                   Static assets
-└── src                                      Renderer source code, your React application
+### Build pour production
+```bash
+npm run build
 ```
 
-<!--
-## 🚨 Be aware
+## 🗂️ Structure du projet
 
-This template integrates Node.js API to the renderer process by default. If you want to follow **Electron Security Concerns** you might want to disable this feature. You will have to expose needed API by yourself.  
+```
+src/
+├── main/                    # Processus principal Electron
+│   ├── main.js            # Point d'entrée principal
+│   ├── preload.js         # Bridge sécurisé IPC
+│   └── database/         # Gestion de la base de données
+│       ├── db.js         # Connexion et initialisation
+│       ├── migrations.js  # Schéma de la base
+│       └── queries/      # Requêtes SQL
+├── renderer/              # Processus renderer (React)
+│   ├── components/       # Composants React
+│   │   ├── layout/      # Layout principal
+│   │   ├── ui/          # Composants UI réutilisables
+│   │   └── charts/      # Composants de graphiques
+│   ├── pages/           # Pages de l'application
+│   │   ├── Dashboard.jsx
+│   │   ├── Invoices/
+│   │   ├── Clients/
+│   │   ├── Reports/
+│   │   └── Settings.jsx
+│   ├── hooks/           # Hooks personnalisés
+│   ├── utils/           # Utilitaires (formatters, PDF)
+│   ├── index.html       # Template HTML
+│   ├── index.jsx        # Point d'entrée React
+│   └── App.jsx          # App principale
+```
 
-To get started, remove the option as shown below. This will [modify the Vite configuration and disable this feature](https://github.com/electron-vite/vite-plugin-electron-renderer#config-presets-opinionated).
+## 🗄️ Base de données
 
-```diff
-# vite.config.ts
+La base de données SQLite est automatiquement créée au premier lancement dans le dossier de données de l'application.
 
-export default {
-  plugins: [
-    ...
--   // Use Node.js API in the Renderer-process
--   renderer({
--     nodeIntegration: true,
--   }),
-    ...
-  ],
+### Tables principales
+- `clients` - Informations des clients
+- `factures` - Factures avec statuts et totaux
+- `lignes_facture` - Lignes détaillées des factures
+- `entreprise` - Paramètres de l'entreprise
+
+## 🔧 Configuration
+
+### Variables d'environnement
+```bash
+NODE_ENV=development  # ou production
+```
+
+### Personnalisation
+Les couleurs et styles sont configurés via les variables CSS dans `src/renderer/index.css` :
+
+```css
+:root {
+  --bg-primary: #0f1117;
+  --bg-secondary: #1a1d27;
+  --accent: #6366f1;
+  /* ... */
 }
 ```
--->
 
-## 🔧 Additional features
+## 📱 Utilisation
 
-1. electron-updater 👉 [see docs](src/components/update/README.md)
-1. playwright
+### Première utilisation
+1. Lancez l'application
+2. Configurez vos informations d'entreprise dans **Paramètres**
+3. Ajoutez vos premiers clients
+4. Créez vos premières factures
 
-## ❔ FAQ
+### Workflow typique
+1. **Tableau de bord** - Vue d'ensemble de l'activité
+2. **Clients** - Gestion de la base client
+3. **Factures** - Création et suivi des factures
+4. **Rapports** - Analyse périodique et export
 
-- [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
-- [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
+## 🔒 Sécurité
+
+- **Isolation de contexte** activée dans Electron
+- **NodeIntegration** désactivé dans le renderer
+- **Communication sécurisée** via contextBridge
+- **Validation** des entrées utilisateur
+- **Stockage local** des données sensibles
+
+## 🚀 Déploiement
+
+### Build pour Windows
+```bash
+npm run build
+# Génère .exe dans dist/
+```
+
+### Build pour macOS
+```bash
+npm run build
+# Génère .dmg dans dist/
+```
+
+### Build pour Linux
+```bash
+npm run build
+# Génère .AppImage dans dist/
+```
+
+## 🐛 Dépannage
+
+### Problèmes courants
+1. **Base de données vide** - L'application crée automatiquement les tables au démarrage
+2. **Erreur de dépendances** - Exécutez `npm install` à nouveau
+3. **Problème de build** - Vérifiez que Node.js 18+ est installé
+
+### Logs
+Les logs de l'application sont disponibles dans la console de développement (F12) en mode développement.
+
+## 🤝 Contribuer
+
+1. Fork le projet
+2. Créer une branche de fonctionnalité
+3. Committer les changements
+4. Pousser vers la branche
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+MIT License - voir le fichier [LICENSE](LICENSE) pour les détails.
+
+## 📞 Support
+
+Pour toute question ou problème :
+- Email : contact@gestionfactures.fr
+- Issues GitHub : [github.com/votre-repo/gestionfactures](https://github.com/votre-repo/gestionfactures)
+
+---
+
+**GestionFactures** - Simplifiez votre facturation ! 🚀
