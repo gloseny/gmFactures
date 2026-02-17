@@ -190,8 +190,8 @@ MIT License - voir le fichier [LICENSE](LICENSE) pour les détails.
 ## 📞 Support
 
 Pour toute question ou problème :
-- Email : contact@gestionfactures.fr
-- Issues GitHub : [github.com/votre-repo/gestionfactures](https://github.com/votre-repo/gestionfactures)
+- Email : lesprojetsdegloire@gmail.com
+- Issues GitHub : [github.com/gloseny/gmFactures](https://github.com/gloseny/gmFactures)
 
 ---
 
