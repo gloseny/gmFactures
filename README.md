@@ -1,4 +1,4 @@
-# 🧾 GestionFactures
+# 🧾 gmFactures
 
 Application desktop complète de gestion et d'édition de factures développée avec Electron, React et SQLite.
 
@@ -195,4 +195,4 @@ Pour toute question ou problème :
 
 ---
 
-**GestionFactures** - Simplifiez votre facturation ! 🚀
+**gmFactures** - Simplifiez votre facturation ! 🚀
