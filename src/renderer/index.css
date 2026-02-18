@@ -1,7 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import "tailwindcss";
+
+/* 
+   IMPORTANT : Dans Tailwind v4, l'import ci-dessus remplace :
+   @tailwind base; 
+   @tailwind components; 
+   @tailwind utilities;
+*/
 
 :root {
   --bg-primary: #0f1117;
