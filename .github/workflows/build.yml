@@ -1,3 +1,6 @@
+permissions:
+  contents: write  # Indispensable pour créer des releases et uploader des fichiers
+  
 name: Build Electron App - gmFactures
 on:
   push:
