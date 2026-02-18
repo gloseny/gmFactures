@@ -27,7 +27,8 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+         # On ajoute --legacy-peer-deps pour ignorer les conflits de types React 18/19
+        run: npm install --legacy-peer-deps
 
       - name: Build frontend (Vite)
         run: npm run build
