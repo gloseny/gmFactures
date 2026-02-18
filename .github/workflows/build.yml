@@ -1,20 +1,18 @@
-name: Build Electron App - gmFactures
+permissions:
+  contents: write  # Indispensable pour créer des releases et uploader des fichiers
 
+name: Build Electron App - gmFactures
 on:
   push:
     tags:
-      - 'v*' # Se déclenche lors du push d'un tag (ex: v1.0.6)
-
-# Indispensable pour autoriser la création de la release et l'upload des fichiers
-permissions:
-  contents: write
+      - 'v*' # Se déclenche quand vous créez un tag comme v1.0.1
 
 jobs:
   release:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # Compilation en parallèle pour macOS, Windows et Linux
+        # On lance 3 serveurs en parallèle (mac, windows, linux)
         os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
@@ -25,7 +23,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -41,4 +38,4 @@ jobs:
           args: "--publish always"
         env:
           # Injection du jeton dans l'environnement pour electron-builder
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
