@@ -1,18 +1,20 @@
-permissions:
-  contents: write  # Indispensable pour créer des releases et uploader des fichiers
-
 name: Build Electron App - gmFactures
+
 on:
   push:
     tags:
-      - 'v*' # Se déclenche quand vous créez un tag comme v1.0.1
+      - 'v*' # Se déclenche lors du push d'un tag (ex: v1.0.0)
+
+# Permissions globales pour permettre la création de la Release
+permissions:
+  contents: write
 
 jobs:
   release:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # On lance 3 serveurs en parallèle (mac, windows, linux)
+        # Construction pour les 3 systèmes en parallèle
         os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
@@ -23,6 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm' # Optimise le temps de build en mettant le cache en mémoire
 
       - name: Install dependencies
         run: npm install
@@ -33,9 +36,11 @@ jobs:
       - name: Build & Release Electron App
         uses: samuelmeuli/action-electron-builder@v1
         with:
+          # Ici, on utilise le jeton automatique fourni par GitHub
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Force la publication pour éviter l'avertissement de la v27
+          # Force la publication sur GitHub Releases
+          release: true
           args: "--publish always"
         env:
-          # Injection du jeton dans l'environnement pour electron-builder
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          # Correction : on utilise GITHUB_TOKEN (le secret intégré)
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
