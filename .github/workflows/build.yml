@@ -36,11 +36,10 @@ jobs:
       - name: Build & Release Electron App
         uses: samuelmeuli/action-electron-builder@v1
         with:
-          # Ici, on utilise le jeton automatique fourni par GitHub
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Force la publication sur GitHub Releases
+          # On utilise votre secret manuel pour l'action elle-même
+          github_token: ${{ secrets.GH_TOKEN }}
           release: true
           args: "--publish always"
         env:
-          # Correction : on utilise GITHUB_TOKEN (le secret intégré)
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # On injecte le même secret dans l'environnement pour electron-builder
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
