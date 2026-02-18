@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         # Construction pour les 3 systèmes en parallèle
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [windows-latest]
 
     steps:
       - name: Check out git repository
