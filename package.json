@@ -62,9 +62,13 @@
       "target": ["nsis", "portable"]
     },
     "linux": {
-    "category": "Office",
-    "target": ["AppImage", "deb"],
-    "maintainer": "Votre Nom <votre@email.com>"
-  }
+      "category": "Office",
+      "target": ["AppImage", "deb"],
+      "maintainer": "Votre Nom <votre@email.com>"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gloseny/gmFactures"
   }
 }
