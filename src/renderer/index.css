@@ -14,7 +14,7 @@
   --border: #2d3148;
 }
 
-/* Définition des utilitaires personnalisés pour Tailwind v4 */
+/* Définition des utilitaires personnalisés conformes Tailwind v4 */
 @utility focus-ring {
   &:focus {
     outline: 2px solid var(--accent);
@@ -37,40 +37,21 @@ body {
   width: 8px;
   height: 8px;
 }
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 4px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
 /* Badges de statut */
 .badge {
   @apply px-2 py-1 rounded-full text-xs font-medium;
 }
-
-.badge-brouillon {
-  @apply bg-gray-600 text-gray-200;
-}
-
-.badge-envoyee {
-  @apply bg-blue-600 text-blue-200;
-}
-
-.badge-payee {
-  @apply bg-green-600 text-green-200;
-}
-
-.badge-annulee {
-  @apply bg-red-600 text-red-200;
-}
+.badge-brouillon { background-color: #4b5563; color: #e5e7eb; }
+.badge-envoyee { background-color: #2563eb; color: #dbeafe; }
+.badge-payee { background-color: #16a34a; color: #dcfce7; }
+.badge-annulee { background-color: #dc2626; color: #fee2e2; }
 
 /* Cartes KPI */
 .kpi-card {
@@ -78,28 +59,17 @@ body {
   border: 1px solid var(--border);
   @apply rounded-lg p-6;
 }
-
 .kpi-value {
   @apply text-2xl font-bold;
   color: var(--text-primary);
 }
-
 .kpi-label {
   @apply text-sm mt-1;
   color: var(--text-secondary);
 }
-
-.kpi-change {
-  @apply text-sm font-medium mt-2;
-}
-
-.kpi-change.positive {
-  color: var(--success);
-}
-
-.kpi-change.negative {
-  color: var(--danger);
-}
+.kpi-change { @apply text-sm font-medium mt-2; }
+.kpi-change.positive { color: var(--success); }
+.kpi-change.negative { color: var(--danger); }
 
 /* Boutons */
 .btn {
@@ -107,34 +77,38 @@ body {
 }
 
 .btn-primary {
-  @apply bg-indigo-600 text-white border-transparent;
-  &:hover {
-    background-color: var(--accent-hover);
-  }
+  background-color: var(--accent);
+  color: white;
+  border-color: transparent;
+  &:hover { background-color: var(--accent-hover); }
 }
 
 .btn-secondary {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
   border: 1px solid var(--border);
-  @apply hover:bg-opacity-80;
+  &:hover { opacity: 0.8; }
 }
 
 .btn-success {
-  @apply bg-emerald-600 text-white border-transparent hover:bg-opacity-90;
+  background-color: var(--success);
+  color: white;
+  border-color: transparent;
+  &:hover { opacity: 0.9; }
 }
 
 .btn-danger {
-  @apply bg-red-600 text-white border-transparent hover:bg-opacity-90;
+  background-color: var(--danger);
+  color: white;
+  border-color: transparent;
+  &:hover { opacity: 0.9; }
 }
 
 .btn-outline {
-  @apply bg-transparent border;
+  background-color: transparent;
+  border: 1px solid var(--border);
   color: var(--text-primary);
-  border-color: var(--border);
-  &:hover {
-    background-color: var(--bg-card);
-  }
+  &:hover { background-color: var(--bg-card); }
 }
 
 /* Champs de formulaire */
@@ -144,7 +118,6 @@ body {
   border: 1px solid var(--border);
   color: var(--text-primary);
 }
-
 .form-label {
   @apply block text-sm font-medium mb-1;
   color: var(--text-secondary);
@@ -156,23 +129,18 @@ body {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
 }
-
 .table th {
   @apply px-4 py-3 text-left text-xs font-medium border-b;
   color: var(--text-secondary);
   background-color: var(--bg-secondary);
   border-color: var(--border);
 }
-
 .table td {
   @apply px-4 py-3 text-sm border-b;
   color: var(--text-primary);
   border-color: var(--border);
 }
-
-.table tbody tr:hover {
-  background-color: var(--bg-secondary);
-}
+.table tbody tr:hover { background-color: var(--bg-secondary); }
 
 /* Sidebar */
 .sidebar {
@@ -180,7 +148,6 @@ body {
   background-color: var(--bg-secondary);
   border-right: 1px solid var(--border);
 }
-
 .sidebar-item {
   @apply flex items-center px-4 py-3 transition-custom cursor-pointer;
   color: var(--text-secondary);
@@ -189,7 +156,6 @@ body {
     background-color: var(--bg-primary);
   }
 }
-
 .sidebar-item.active {
   @apply border-l-4;
   color: var(--accent);
@@ -206,25 +172,14 @@ body {
 
 /* Modales */
 .modal-overlay {
-  @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50;
+  @apply fixed inset-0 flex items-center justify-center z-50;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-
 .modal {
   @apply rounded-lg max-w-md w-full mx-4;
   background-color: var(--bg-card);
   border: 1px solid var(--border);
 }
-
-.modal-header {
-  @apply px-6 py-4;
-  border-bottom: 1px solid var(--border);
-}
-
-.modal-body {
-  @apply px-6 py-4;
-}
-
-.modal-footer {
-  @apply px-6 py-4 flex justify-end space-x-2;
-  border-top: 1px solid var(--border);
-}
+.modal-header { @apply px-6 py-4; border-bottom: 1px solid var(--border); }
+.modal-body { @apply px-6 py-4; }
+.modal-footer { @apply px-6 py-4 flex justify-end space-x-2; border-top: 1px solid var(--border); }
