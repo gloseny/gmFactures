@@ -25,7 +25,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' # Optimise le temps de build en mettant le cache en mémoire
 
       - name: Install dependencies
         run: npm install
