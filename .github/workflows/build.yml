@@ -1,6 +1,6 @@
 permissions:
   contents: write  # Indispensable pour créer des releases et uploader des fichiers
-  
+
 name: Build Electron App - gmFactures
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
       - name: Build & Release Electron App
         uses: samuelmeuli/action-electron-builder@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
         env:
           # On ajoute explicitement la variable d'environnement ici
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
