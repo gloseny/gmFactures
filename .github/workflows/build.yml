@@ -3,19 +3,14 @@ name: Build Electron App - gmFactures
 on:
   push:
     tags:
-      - 'v*' # Se déclenche lors du push d'un tag (ex: v1.0.0)
+      - 'v*'
 
-# Permissions globales pour permettre la création de la Release
 permissions:
   contents: write
 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # Construction pour les 3 systèmes en parallèle
-        os: [windows-latest]
+    runs-on: windows-latest
 
     steps:
       - name: Check out git repository
@@ -27,19 +22,12 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-         # On ajoute --legacy-peer-deps pour ignorer les conflits de types React 18/19
-        run: npm install --legacy-peer-deps && npm install react-is --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       - name: Build frontend (Vite)
         run: npm run build
 
-      - name: Build & Release Electron App
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          # On utilise votre secret manuel pour l'action elle-même
-          github_token: ${{ secrets.GH_TOKEN }}
-          release: true
-          args: "--publish always"
+      - name: Build & publish Electron app
+        run: npx electron-builder --publish always
         env:
-          # On injecte le même secret dans l'environnement pour electron-builder
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
