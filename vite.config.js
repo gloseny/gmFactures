@@ -13,6 +13,9 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'src/renderer/index.html')
       }
+    },
+    optimizeDeps: {
+      include: ['react-is']
     }
   },
   resolve: {
