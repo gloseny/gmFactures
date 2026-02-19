@@ -1,9 +1,9 @@
 {
-  "name": "gestionfactures",
-  "version": "1.0.0",
+  "name": "gmfactures",
+  "version": "1.0.1",
   "main": "src/main/main.js",
   "description": "Application de gestion de factures desktop",
-  "author": "GestionFactures",
+  "author": "G-MANAGER",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -46,7 +46,7 @@
     "vite": "^7.3.1"
   },
   "build": {
-    "appId": "com.gestionfactures.app",
+    "appId": "com.gmfactures.app",
     "productName": "gmFactures",
     "directories": {
       "output": "release"
@@ -73,7 +73,7 @@
         "AppImage",
         "deb"
       ],
-      "maintainer": "Votre Nom <votre@email.com>"
+      "maintainer": "G-MANAGER <lesprojetsdegloire@gmail.com>"
     }
   },
   "repository": {
