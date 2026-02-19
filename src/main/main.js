@@ -1,10 +1,13 @@
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import { invoiceQueries, clientQueries, reportQueries, db } from './database/db.js';
 
-// Chemins
+// Correction ESM compatible Windows
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const isDev = process.env.NODE_ENV === 'development';
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('isDev:', isDev);
@@ -29,33 +32,24 @@ function createWindow() {
     show: false
   });
 
-  // Charger l'application
   if (isDev) {
     console.log('Chargement en mode développement sur http://localhost:5173');
     mainWindow.loadURL('http://localhost:5173');
-    // Ouvrir les outils de développement après un court délai
     setTimeout(() => {
       mainWindow.webContents.openDevTools();
     }, 1000);
   } else {
-    console.log('Chargement en mode production');
-    // On utilise app.getAppPath() pour garantir le point de départ
-    const htmlPath = path.join(app.getAppPath(), 'dist', 'index.html');
-    
-    // const htmlPath = path.join(__dirname, '../renderer/index.html');
+    const htmlPath = path.join(__dirname, '../../dist/index.html');
     console.log('Chemin HTML:', htmlPath);
-    // mainWindow.loadFile(htmlPath);
     mainWindow.loadFile(htmlPath).catch((err) => {
       console.error('Erreur lors du chargement du HTML:', err);
     });
   }
 
-  // Afficher la fenêtre quand elle est prête
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
 
-  // Gérer les liens externes
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https:')) shell.openExternal(url);
     return { action: 'deny' };
@@ -227,7 +221,7 @@ ipcMain.handle('update-entreprise', async (event, data) => {
         tva_numero = ?, logo_path = ?, iban = ?
       WHERE id = 1
     `);
-    
+
     const result = stmt.run(
       data.nom,
       data.adresse,
@@ -238,7 +232,7 @@ ipcMain.handle('update-entreprise', async (event, data) => {
       data.logo_path || null,
       data.iban
     );
-    
+
     return result.changes > 0;
   } catch (error) {
     console.error('Erreur lors de la mise à jour des infos entreprise:', error);
